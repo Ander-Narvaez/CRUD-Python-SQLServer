@@ -7,6 +7,7 @@
   * Boostrap v4.5 
   * Flask v2.1.2
   * Flask-Login v0.6.1
+  * blueprint v3.4.2
   * pyodbc v4.0.32
   * SQLAlchemy v1.4.39
   * SweetAlert2
