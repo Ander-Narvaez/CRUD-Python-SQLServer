@@ -16,7 +16,7 @@
   -----------------
 
 
-Desarrolladores  ✒️
+Desarrollador  ✒️
 ------------------
 | Primer Apellido | Segundo Apellido | Nombre | sitios 📌  |
 | :-------- | :-------: | --------: | :-------: |
