@@ -12,7 +12,7 @@ class SQL(object):
 
     def _open(self):
         try:
-            cnx = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=127.0.0.1,1433;Database=datos;Uid=sa;Pwd={1q2w3e4R**};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+            cnx = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=127.0.0.1,1433;Database=datos;Uid=sa;Pwd={1q2w3e4R**};')
             self.__connection = cnx
             self.__session = cnx.cursor()
             print('Connected')
@@ -45,12 +45,13 @@ class SQL(object):
             self._open()
             if args != [] :
                 self.__session.execute(name, args)
+                self.__connection.commit()
             else:
                 self.__session.execute(name)
                 self.__connection.commit()
                 print('Ejecutado')
         except Exception as error :
-            print(error)
+            print(error)       
 
 cls = SQL()
 cls._open()

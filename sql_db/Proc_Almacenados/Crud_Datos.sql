@@ -1,3 +1,5 @@
+ USE datos;
+ GO
 -- stp insertar
  CREATE PROCEDURE stp_insertarDato
  (
@@ -30,6 +32,19 @@ IF EXISTS (SELECT id FROM datos WHERE id = @id)
   END
 END
 GO
+-- stp Eliminar
+ CREATE PROCEDURE stp_eliminarDato 
+ (
+ @id		  INT
+ )
+ AS 
+BEGIN 
+IF EXISTS (SELECT id FROM datos WHERE id = @id)
+  BEGIN
+		DELETE FROM datos WHERE id = @id;
+  END
+END
+GO
 -- stp mostrar Datos
  CREATE PROCEDURE stp_mostrarDatos
 (
@@ -43,6 +58,7 @@ BEGIN
 
 END
 GO
+EXECUTE stp_mostrarDatos 1 ;
 INSERT INTO datos(texto, descripcion) 
         VALUES('Godzilla', 'Dinosaurio radiactivo protector de Tokio.'),
               ('Poletergeish','Fantasmas que estan atrapados en la realidad.'),

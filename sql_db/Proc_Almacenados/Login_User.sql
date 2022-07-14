@@ -5,7 +5,8 @@
  *	SI: Retorna los datos del usuario
  *	NO: Retorna falso 
  */
-
+USE datos;
+GO
 CREATE PROCEDURE pa_login
 (
 @pcedula INT,

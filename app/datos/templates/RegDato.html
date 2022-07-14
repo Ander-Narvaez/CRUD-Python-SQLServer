@@ -13,9 +13,7 @@
     <div class="row">
         <div class="col-12 col-md-6 mx-auto">
             {% for indice in pro%}
-            <form class="needs-validation" action="/guardar-dato?id={{indice.0}}" method="POST"
-                novalidate>
-
+            <form class="needs-validation" action="/guardar-dato?id={{indice.0}}" method="POST" novalidate>
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="txtTexto">Texto</label>
@@ -27,7 +25,7 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="txtDescrip">Descripción</label>
-                        <input type="text" class="form-control" name="Descripción" value="{{indice.2}}" id="txtDescrip"
+                        <input type="text" class="form-control" name="Descripcion" value="{{indice.2}}" id="txtDescrip"
                             placeholder="Descripción" required>
                         <div class="valid-feedback">
                             Correcto

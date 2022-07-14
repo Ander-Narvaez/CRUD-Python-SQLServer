@@ -33,4 +33,6 @@ CREATE TABLE usuarios
 GO
 
 insert into usuarios (cedula,nombre,rol,contra,estado) 
-       values(207980615,'Ander','Administrador','1q2w3e4r','Activo')
+       values(207980615,'Ander','Administrador','pbkdf2:sha256:260000$NCn06qDmz3MtbLoM$87791c7eeabd492f8ce04ca2d184bad6ce418b49c5b94e821b00eae31cb7508a','Activo')
+
+delete from usuarios where cedula = 207980615;

@@ -1,38 +1,41 @@
 {% extends "Menu-Bar.html" %}
 {% block content %}
 {{ super() }}
-
-<div class="container-fluid">
+<div class="container">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb col-6 col-md-3 mt-5 ml-2">
-            <li class="breadcrumb-item"><a href="/inicio">Menú principal</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Datos</li>
+            <li class="breadcrumb-item active" aria-current="page">
+                <a href="/inicio">Menú Principal</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Usuarios</li>
         </ol>
     </nav>
-    <h1 class="text-center">Datos</h1>
-
+    <h2 class="text-center">Usuarios</h2>
     <div class="row mb-3">
 
         <div class="col-12 col-md-3 mx-auto">
-            <!-- Botón de Nuevo  -->
-            <a href="/registrar-dato" class="btn btn-success">Registrar Dato</a>
+            <!-- Botón de Nuevo -->
+            <a href="/nuevo-usuario" class="btn btn-success">Registrar Usuario</a>
         </div>
+
         <div class="col-12 col-md-9">
+            <div class="form-group mb-3">
+            </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-12 mx-auto">
-            <!-- Tabla que muestra los datos registrados -->
-            <table class="table table-hover table-sm">
-                <caption>Lista de datos registrados</caption>
+        <div class="col-12 col-md-8 mx-auto">
+            <table class="table table-sm table-hover">
+                <caption>Lista de usuarios registrados.</caption>
                 <thead class="thead-light">
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Texto</th>
-                        <th scope="col">Descripción</th>
+                        <th scope="col">Cédula</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Rol</th>
+                        <th scope="col">Estado</th>
                         <th scope="col">Editar</th>
-                        <th scope="col">Eliminar</th>
+                        <th scope="col">Desactivar</th>
                     </tr>
                 </thead>
                 <tbody id="myTable">
@@ -41,9 +44,10 @@
                         <th scope="row">{{contact.0}}</th>
                         <td>{{contact.1}}</td>
                         <td>{{contact.2}}</td>
+                        <td>{{contact.3}}</td>
                         <td>
-                            <a href="/modificar-dato?id={{contact.0}}">
-                                <svg class="bi bi-pencil-square" width="30" height="30" viewBox="0 0 16 16"
+                            <a href="/modificar-usuario?idusuario={{contact.0}}">
+                                <svg class="bi bi-pencil-square" width="32" height="32" viewBox="0 0 16 16"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z">
@@ -55,8 +59,8 @@
                             </a>
                         </td>
                         <td>
-                            <a href="/eliminar-dato?id={{contact.0}}">
-                                <svg class="bi bi-trash" width="30" height="30" viewBox="0 0 16 16" fill="currentColor"
+                            <a href="/cambiar-estado-usuario?idusuario={{contact.0}}">
+                                <svg class="bi bi-trash" width="32" height="32" viewBox="0 0 16 16" fill="currentColor"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
@@ -69,7 +73,6 @@
                     {% endfor %}
                 </tbody>
             </table>
-
         </div>
     </div>
 </div>
@@ -84,5 +87,4 @@
         });
     });
 </script>
-
 {% endblock %}

@@ -1,45 +1,50 @@
-from app.datos import dato
-from app.datos.dato import Dato
-from app.database.ConexionDB import Sql
+from app.database.ConexionDB import SQL
 
-def insert_dato(request):
-    if (request.method == "POST"):
-        ptexto       = request.form['txtTexto'] 
-        pdescripcion = request.form['txtDescrip']
+def guardar_dato(request):
+    """
+        Guarda un nuevo dato en la BD.
+    """
+    if (request.method == 'POST'):
+        texto       = request.form['Texto'] 
+        descripcion = request.form['Descripcion']
+        print(texto,descripcion)
+        conexion    = SQL()
+        conexion.execute_procedure("stp_insertarDato ?,? ", [texto, descripcion])
 
-        print("Registrando dato...")
-        dato = Dato(None, ptexto, pdescripcion)
-        actions = Sql()
-        actions.execute_procedure("stp_insertarDato",dato.get_list_insert_db())
+def modificar_dato(request):
+    """
+        Se actualiza los datos, de acuerdo al ID auto incrementable.
+        - El id se recibe por el método get y los demás datos por el método POST.
+    """
+    id_dato = request.args.get("id")
+    if (request.method == 'POST' and id_dato != ''):
+        texto       = request.form['Texto'] 
+        descripcion = request.form['Descripcion']
+        conexion = SQL()
+        conexion.execute_procedure("stp_modificarDato ?,?,? ", [id_dato, texto, descripcion])
 
-def update_dato(request):
-    if (request.method == "POST"):
-        pId   = request.form["id_repuesto"]
-        ptexto       = request.form['txtTexto'] 
-        pdescripcion = request.form['txtDescrip']
-        print("Actualizando repueso...")
-        dato = Dato(pId,  ptexto, pdescripcion)
-        actions = Sql()
-        actions.execute_procedure("stp_modificarDato",dato.get_list_update_db())
 
-def delete_dato(request):
-    pId_repuesto = request.args.get("id")
-    print("Eliminando repuesto...")
-    actions = Sql()
-    actions.execute_procedure("stp_eliminarDato",[pId_repuesto])
+def obtener_dato(id_dato):
+    """
+        Identifica por medio del ID y retorna los datos de un proveedor registrado en la BD.
+        - El ID es de tipo int.
+    """
+    if (id != ''):
+        conexion = SQL()
+        datos    = conexion.call_store_procedure_return("stp_mostrarDatos ? ", [id_dato])
+        return datos
+    return None
 
-def mostrar_datos(request):
-    print("Extrayendo modelos...")
-    actions = Sql()
-    datos = []
-    id = request.args.get("id")
-    if id == None:
-        datos = actions.call_store_procedure_return("stp_mostrarDatos",[])
-    else:
-        datos = actions.call_store_procedure_return("stp_mostrarDatos",[id])
-    repuestos = []
-    for dato_actual in datos:
-        dato_nuevo = Dato(dato_actual[0], dato_actual[1], dato_actual[2],
-                                  dato_actual[3], dato_actual[4])
-        repuestos.append(dato_nuevo)
-    return repuestos
+def mostrar_datos():
+    """
+        Extrae todos los proveedores registrados en la BD.
+    """
+    conexion = SQL()
+    datos    = conexion.call_store_procedure_return("stp_mostrarRegistros ? ", ['datos'])
+    return datos
+
+def eliminar_dato(request):
+    id_dato = request.args.get("id")
+    conexion = SQL()
+    datos    = conexion.execute_procedure("stp_eliminarDato ? ", [id_dato])
+    return datos
